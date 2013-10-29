@@ -64,10 +64,9 @@ def rec_fibs(num)
   end
 end
 
-puts rec_fibs(16)
-
 
 # Recursive binary search (sorted array, target number)
+
 def rec_bin_search(array, target)
   return nil if array.length == 0
 
@@ -84,5 +83,39 @@ def rec_bin_search(array, target)
 end
 
 
+# Merge sort
+
+def merge(l_array, r_array)
+  result = []
+  while l_array.length > 0 && r_array.length > 0
+    if l_array[0] < r_array[0]
+      result << l_array.shift
+    else
+      result << r_array.shift
+    end
+  end
+
+  result.concat(l_array).concat(r_array)
+end
+
+def rec_merge_sort(array)
+  return array if array.length == 1
+
+  midpoint = array.length / 2
+  left, right = array.take(midpoint), array.drop(midpoint)
+
+  merge(rec_merge_sort(left), rec_merge_sort(right))
+end
 
 
+# Subsets
+
+def rec_subsets(array)
+  return [[]] if array.empty?
+
+  subsets = rec_subsets(array.take(array.length - 1))
+  subsets + subsets.map { |set| set + [array.last]}
+end
+
+# try wordchains later:
+# http://web.archive.org/web/20130215052516/http://rubyquiz.com/quiz44.html
